@@ -12,7 +12,7 @@
             background: #ffe6f3;
         }
 
-        /* ENCABEZADO */
+        /* ---------------- HEADER ---------------- */
         header {
             background: #ff7ebf;
             color: white;
@@ -20,23 +20,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* LOGO */
         header img {
             height: 90px;
             animation: latido 2s infinite;
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
         }
 
-        /* Animación del logo */
         @keyframes latido {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1);}
+            50% { transform: scale(1.08);}
+            100% { transform: scale(1);}
         }
 
-        /* MENÚ */
         nav ul {
             list-style: none;
             display: flex;
@@ -50,6 +50,7 @@
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         nav a:hover {
@@ -57,26 +58,10 @@
             transform: scale(1.1);
         }
 
-        /* SUBMENÚ */
-        .submenu ul {
-            display: none;
-            position: absolute;
-            background: #ff9fd3;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .submenu:hover ul {
-            display: block;
-        }
-
-        /* MENÚ HAMBURGUESA */
         .hamburger {
             display: none;
             cursor: pointer;
             font-size: 32px;
-            margin-right: 10px;
         }
 
         @media (max-width: 768px) {
@@ -87,112 +72,301 @@
                 width: 100%;
                 padding: 20px;
             }
-
             nav ul.active {
                 display: flex;
             }
-
             .hamburger {
                 display: block;
             }
         }
 
-        /* TARJETAS */
-        section {
-            padding: 40px 20px;
+        /* ---------------- SECCIONES OCULTABLES ---------------- */
+        .seccion {
+            display: none;
+        }
+        .seccion.activa {
+            display: block;
+        }
+
+        /* ---------------- CARRUSEL ---------------- */
+        #inicio {
+            margin-top: 20px;
+        }
+
+        .carrusel-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto 60px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.18);
+        }
+
+        .carrusel-slide {
+            display: none;
+        }
+
+        .carrusel-slide img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+
+        .texto-carrusel {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 0, 120, 0.5);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 70%;
+            backdrop-filter: blur(3px);
+        }
+
+        .texto-carrusel h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .texto-carrusel p {
+            margin: 5px 0 0;
+            font-size: 16px;
+        }
+
+        .btn-catalogo {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff7ebf;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-catalogo:hover {
+            background: #ff4fab;
+        }
+
+        .punto {
+            height: 12px;
+            width: 12px;
+            margin: 3px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .active {
+            background-color: #ff3b88;
+        }
+
+        .fade {
+            animation: fadeEffect 1.5s ease-in-out;
+        }
+
+        @keyframes fadeEffect {
+            from {opacity: 0.4;}
+            to {opacity: 1;}
+        }
+
+        /* ---------------- CATÁLOGO ---------------- */
+        #catalogo {
+            padding: 60px 20px;
+            background: #fff0f8;
+            border-top: 4px solid #ffaada;
+        }
+
+        #catalogo h2 {
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: #ff3b88;
+        }
+
+        .catalogo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .producto-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 15px;
             text-align: center;
         }
 
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 10px auto;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .producto-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .precio {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff3b88;
+        }
+
+        .btn-comprar {
+            background: #ff7ebf;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-comprar:hover {
+            background: #ff4fab;
         }
 
     </style>
 
     <script>
+        /* Menú hamburguesa */
         function toggleMenu() {
             document.querySelector("nav ul").classList.toggle("active");
         }
     </script>
-</head>
 
+</head>
 <body>
 
-    <!-- ENCABEZADO MEJORADO -->
+    <!-- ---------------- HEADER ---------------- -->
     <header>
         <img src="logo.png" alt="Logo Chucheritas Aralan">
-
 
         <div class="hamburger" onclick="toggleMenu()">☰</div>
 
         <nav>
             <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#catalogo">Catálogo</a></li>
-                <li><a href="#carrito">Carrito</a></li>
-                <li><a href="#ofertas">Ofertas</a></li>
-
-                <li class="submenu">
-                    <a href="#admin">Administración</a>
-                    <ul>
-                        <li><a href="#admin-productos">Administrar Productos</a></li>
-                        <li><a href="#admin-instagram">Publicar en Instagram</a></li>
-                        <li><a href="#admin-reportes">Reportes</a></li>
-                    </ul>
-                </li>
-
-                <li><a href="#contacto">Contacto</a></li>
-                <li><a href="#login">Iniciar Sesión</a></li>
+                <li><a onclick="mostrarSeccion('inicio')">Inicio</a></li>
+                <li><a onclick="mostrarSeccion('catalogo')">Catálogo</a></li>
+                <li><a onclick="mostrarSeccion('contacto')">Contacto</a></li>
+                <li><a onclick="mostrarSeccion('login')">Iniciar Sesión</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- SECCIONES -->
-    <section id="inicio">
-        <h1>Bienvenido a Chucheritas Aralan</h1>
-        <p>Las mejores golosinas al mejor precio 🍬💗</p>
-    </section>
 
-    <section id="catalogo">
-        <h2>Catalogo</h2>
 
-    <div class="catalogo-grid">
-       <!--Producto:Caliente Reds-->
-         <img src="caliente-reds.png" alt="Set Caliente Reds">
-         <h3>Set de labiales "Caliente Reds"</h3>
-         <p class="precio"> $150 MXN</p>
-         <p class="descripcion">Set de 5 labiales mousse matte en tonos rojos intensos.</p>
-         <button class="btn-comprar">Agregar al carrito</button>
-    </div>
-    </section>
+    <!-- ---------------- SOLO CARRUSEL EN INICIO ---------------- -->
+    <section id="inicio" class="seccion activa">
+        <div class="carrusel-container">
 
-    <section id="carrito">
-        <div class="card">
-            <h2>Carrito</h2>
-            <p>Aquí podrás ver los productos que deseas comprar.</p>
+            <div class="carrusel-slide fade">
+                <img src="c1.png" alt="Imagen 1">
+                <div class="texto-carrusel">
+                    <h2>Bienvenido a Chucheritas Aralan</h2>
+                    <p>Lo mejor para tu estilo 💗</p>
+                </div>
+            </div>
+
+            <div class="carrusel-slide fade">
+                <img src="c2.png" alt="Imagen 2">
+                <div class="texto-carrusel">
+                    <h2>Nuevos productos</h2>
+                    <p>¡Novedades cada semana!</p>
+                </div>
+            </div>
+
+            <div class="carrusel-slide fade">
+                <img src="c3.png" alt="Imagen 3">
+                <div class="texto-carrusel">
+                    <h2>Ofertas especiales</h2>
+                    <p>No te las pierdas 💖</p>
+                </div>
+            </div>
+
+            <a onclick="mostrarSeccion('catalogo')" class="btn-catalogo">Ver catálogo</a>
+
+            <div class="puntos" style="text-align:center;">
+                <span class="punto" onclick="cambiarSlide(1)"></span>
+                <span class="punto" onclick="cambiarSlide(2)"></span>
+                <span class="punto" onclick="cambiarSlide(3)"></span>
+            </div>
         </div>
     </section>
 
-    <section id="ofertas">
-        <div class="card">
-            <h2>Ofertas</h2>
-            <p>Promociones especiales y descuentos cada semana.</p>
+
+
+    <!-- ---------------- CATÁLOGO (inicia oculto) ---------------- -->
+    <section id="catalogo" class="seccion">
+        <h2>Catálogo</h2>
+
+        <div class="catalogo-grid">
+
+            <div class="producto-card">
+                <img src="caliente-reds.png" alt="Set Caliente Reds">
+                <h3>Set de Labiales "Caliente Reds"</h3>
+                <p class="precio">$150 MXN</p>
+                <p class="descripcion">Set de 5 labiales mousse matte en tonos rojos intensos.</p>
+                <button class="btn-comprar">Agregar al carrito</button>
+            </div>
+
         </div>
     </section>
 
-    <section id="contacto">
-        <div class="card">
-            <h2>Contacto</h2>
-            <p>WhatsApp: 722-<br>Instagram: @chucheritasaralan</p>
-        </div>
-    </section>
+
+
+    <!-- ---------------- JS DEL CARRUSEL + CONTROL DE SECCIONES ---------------- -->
+<script>
+/* -------- CARRUSEL -------- */
+let slideIndex = 1;
+mostrarSlide(slideIndex);
+
+function cambiarSlide(n) {
+    mostrarSlide(slideIndex = n);
+}
+
+function mostrarSlide(n) {
+    let slides = document.getElementsByClassName("carrusel-slide");
+    let puntos = document.getElementsByClassName("punto");
+
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+
+    for (let i = 0; i < slides.length; i++)
+        slides[i].style.display = "none";
+
+    for (let i = 0; i < puntos.length; i++)
+        puntos[i].classList.remove("active");
+
+    slides[slideIndex - 1].style.display = "block";
+    puntos[slideIndex - 1].classList.add("active");
+}
+
+setInterval(() => {
+    slideIndex++;
+    mostrarSlide(slideIndex);
+}, 5000);
+
+
+/* -------- CONTROL DE SECCIONES -------- */
+function mostrarSeccion(nombre) {
+    document.querySelectorAll(".seccion").forEach(sec =>
+        sec.classList.remove("activa")
+    );
+
+    document.getElementById(nombre).classList.add("activa");
+
+    document.querySelector("nav ul").classList.remove("active");
+}
+</script>
 
 </body>
 </html>
+
+
+
+
 
