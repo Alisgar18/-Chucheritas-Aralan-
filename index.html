@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chucheritas Aralan</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffe6f3;
+        }
+
+        /* ENCABEZADO */
+        header {
+            background: #ff7ebf;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* LOGO */
+        header img {
+            height: 90px;
+            animation: latido 2s infinite;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+        }
+
+        /* Animación del logo */
+        @keyframes latido {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        /* MENÚ */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffe1f2;
+            transform: scale(1.1);
+        }
+
+        /* SUBMENÚ */
+        .submenu ul {
+            display: none;
+            position: absolute;
+            background: #ff9fd3;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .submenu:hover ul {
+            display: block;
+        }
+
+        /* MENÚ HAMBURGUESA */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 32px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background: #ff7ebf;
+                width: 100%;
+                padding: 20px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* TARJETAS */
+        section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 10px auto;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+    </style>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector("nav ul").classList.toggle("active");
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO MEJORADO -->
+    <header>
+        <img src="logo.png" alt="Logo Chucheritas Aralan">
+
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#carrito">Carrito</a></li>
+                <li><a href="#ofertas">Ofertas</a></li>
+
+                <li class="submenu">
+                    <a href="#admin">Administración</a>
+                    <ul>
+                        <li><a href="#admin-productos">Administrar Productos</a></li>
+                        <li><a href="#admin-instagram">Publicar en Instagram</a></li>
+                        <li><a href="#admin-reportes">Reportes</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#login">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- SECCIONES -->
+    <section id="inicio">
+        <h1>Bienvenido a Chucheritas Aralan</h1>
+        <p>Las mejores golosinas al mejor precio 🍬💗</p>
+    </section>
+
+    <section id="catalogo">
+        <h2>Catalogo</h2>
+
+    <div class="catalogo-grid">
+       <!--Producto:Caliente Reds-->
+         <img src="caliente-reds.png" alt="Set Caliente Reds">
+         <h3>Set de labiales "Caliente Reds"</h3>
+         <p class="precio"> $150 MXN</p>
+         <p class="descripcion">Set de 5 labiales mousse matte en tonos rojos intensos.</p>
+         <button class="btn-comprar">Agregar al carrito</button>
+    </div>
+    </section>
+
+    <section id="carrito">
+        <div class="card">
+            <h2>Carrito</h2>
+            <p>Aquí podrás ver los productos que deseas comprar.</p>
+        </div>
+    </section>
+
+    <section id="ofertas">
+        <div class="card">
+            <h2>Ofertas</h2>
+            <p>Promociones especiales y descuentos cada semana.</p>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="card">
+            <h2>Contacto</h2>
+            <p>WhatsApp: 722-<br>Instagram: @chucheritasaralan</p>
+        </div>
+    </section>
+
+</body>
+</html>
+
