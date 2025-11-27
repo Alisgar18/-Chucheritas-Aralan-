@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Admin - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="container">
+        <h1 class="section-title">Dashboard Administrador</h1>
+        
+        <!-- Estadísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Productos</h3>
+                <p class="stat-number">{{ stats.total_productos }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Pedidos</h3>
+                <p class="stat-number">{{ stats.total_pedidos }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Clientes</h3>
+                <p class="stat-number">{{ stats.total_clientes }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Ventas del Mes</h3>
+                <p class="stat-number">${{ "%.2f"|format(stats.ventas_mes) }}</p>
+            </div>
+        </div>
+
+        <!-- Acciones Rápidas -->
+        <div class="admin-actions">
+            <h2>Acciones Rápidas</h2>
+            <div class="action-grid">
+                <a href="{{ url_for('admin_productos') }}" class="action-card">
+                    <h3>📦 Gestionar Productos</h3>
+                    <p>Agregar, editar o eliminar productos</p>
+                </a>
+                <a href="{{ url_for('admin_pedidos') }}" class="action-card">
+                    <h3>📋 Ver Pedidos</h3>
+                    <p>Revisar y gestionar todos los pedidos</p>
+                </a>
+                <a href="{{ url_for('admin_empleados') }}" class="action-card">
+                    <h3>👥 Gestionar Empleados</h3>
+                    <p>Administrar equipo de trabajo</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

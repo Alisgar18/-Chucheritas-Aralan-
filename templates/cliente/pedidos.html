@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Pedidos - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="pedidos-section">
+    <div class="container">
+        <h1 class="section-title">Mis Pedidos</h1>
+        
+        {% if pedidos %}
+        <div class="pedidos-list">
+            {% for pedido in pedidos %}
+            <div class="pedido-card">
+                <div class="pedido-header">
+                    <h3>Pedido #{{ pedido.id_pedido }}</h3>
+                    <span class="status-badge status-{{ pedido.estado }}">
+                        {{ pedido.estado }}
+                    </span>
+                </div>
+                <div class="pedido-info">
+                    <p><strong>Fecha:</strong> {{ pedido.fecha_pedido }}</p>
+                    <p><strong>Total:</strong> ${{ "%.2f"|format(pedido.monto_total) }}</p>
+                    <p><strong>Dirección:</strong> {{ pedido.direccion_entrega }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h3>Aún no has realizado pedidos</h3>
+            <p>¡Descubre nuestros productos!</p>
+            <a href="{{ url_for('catalogo') }}" class="btn-primary">Ver Catálogo</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -12,12 +12,23 @@
             <ul>
                 <li><a href="{{ url_for('home') }}">Inicio</a></li>
                 <li><a href="{{ url_for('catalogo') }}">Catálogo</a></li>
-                <li><a href="#contacto">Contacto</a></li>
                 
                 {% if current_user %}
+                    <!-- Menú según tipo de usuario -->
+                    {% if current_user.type == 'admin' %}
+                        <li><a href="{{ url_for('admin_dashboard') }}">Admin</a></li>
+                        <li><a href="{{ url_for('admin_productos') }}">Productos</a></li>
+                        <li><a href="{{ url_for('admin_pedidos') }}">Pedidos</a></li>
+                    {% elif current_user.type == 'repartidor' %}
+                        <li><a href="{{ url_for('repartidor_dashboard') }}">Entregas</a></li>
+                    {% elif current_user.type == 'cliente' %}
+                        <li><a href="{{ url_for('carrito') }}">🛒 Carrito</a></li>
+                        <li><a href="{{ url_for('cliente_pedidos') }}">Mis Pedidos</a></li>
+                    {% endif %}
+                    
                     <li class="user-menu">
                         <a href="{{ url_for('perfil') }}">
-                            👋 Hola, {{ current_user.name }}
+                            👋 {{ current_user.name }}
                         </a>
                     </li>
                     <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>

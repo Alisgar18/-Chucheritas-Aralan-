@@ -1,5 +1,7 @@
-from backend.database import get_db_cursor
+from backend.database import get_db_cursor,is_database_available,logger
 from backend import encryption
+
+
 
 class ProductoModel:
     @staticmethod
@@ -161,3 +163,122 @@ class PedidoModel:
 
             except Exception as e:
                 return {"status": "error", "msg": str(e)}
+
+# backend/models.py (agregar estas clases)
+
+class CarritoModel:
+    @staticmethod
+    def agregar_producto(id_usuario, id_producto, cantidad):
+        """Agrega un producto al carrito"""
+        # En una implementación real, esto iría a la BD
+        # Por ahora usamos sesión
+        return {"status": "ok", "msg": "Producto agregado al carrito"}
+
+    @staticmethod
+    def obtener_carrito(id_usuario):
+        """Obtiene el carrito del usuario"""
+        # Por ahora devolvemos datos de prueba
+        return []
+
+class PedidoModel:
+    @staticmethod
+    def obtener_por_cliente(id_cliente):
+        """Obtiene pedidos de un cliente"""
+        if not is_database_available():
+            return []
+        
+        try:
+            with get_db_cursor() as cursor:
+                cursor.execute("""
+                    SELECT * FROM pedidos 
+                    WHERE id_cliente = %s 
+                    ORDER BY fecha_pedido DESC
+                """, (id_cliente,))
+                return cursor.fetchall()
+        except Exception as e:
+            logger.error(f"Error obteniendo pedidos: {e}")
+            return []
+
+    @staticmethod
+    def obtener_para_repartidor():
+        """Obtiene pedidos asignados a repartidor"""
+        if not is_database_available():
+            return []
+        
+        try:
+            with get_db_cursor() as cursor:
+                cursor.execute("""
+                    SELECT * FROM pedidos 
+                    WHERE estado IN ('pendiente', 'en_camino')
+                    ORDER BY fecha_entrega
+                """)
+                return cursor.fetchall()
+        except Exception as e:
+            logger.error(f"Error obteniendo pedidos repartidor: {e}")
+            return []
+
+    @staticmethod
+    def actualizar_estado(id_pedido, estado):
+        """Actualiza estado de un pedido"""
+        if not is_database_available():
+            return {"status": "error", "msg": "BD no disponible"}
+        
+        try:
+            with get_db_cursor() as cursor:
+                cursor.execute("""
+                    UPDATE pedidos SET estado = %s 
+                    WHERE id_pedido = %s
+                """, (estado, id_pedido))
+                return {"status": "ok", "msg": "Estado actualizado"}
+        except Exception as e:
+            logger.error(f"Error actualizando pedido: {e}")
+            return {"status": "error", "msg": str(e)}
+
+class AdminModel:
+    @staticmethod
+    def obtener_estadisticas():
+        """Obtiene estadísticas para el dashboard admin"""
+        if not is_database_available():
+            return {
+                'total_productos': 0,
+                'total_pedidos': 0,
+                'total_clientes': 0,
+                'ventas_mes': 0
+            }
+        
+        try:
+            with get_db_cursor() as cursor:
+                # Productos
+                cursor.execute("SELECT COUNT(*) as total FROM productos")
+                total_productos = cursor.fetchone()['total']
+                
+                # Pedidos
+                cursor.execute("SELECT COUNT(*) as total FROM pedidos")
+                total_pedidos = cursor.fetchone()['total']
+                
+                # Clientes
+                cursor.execute("SELECT COUNT(*) as total FROM clientes")
+                total_clientes = cursor.fetchone()['total']
+                
+                # Ventas del mes
+                cursor.execute("""
+                    SELECT COALESCE(SUM(monto_total), 0) as ventas 
+                    FROM pedidos 
+                    WHERE MONTH(fecha_pedido) = MONTH(CURRENT_DATE)
+                """)
+                ventas_mes = cursor.fetchone()['ventas']
+                
+                return {
+                    'total_productos': total_productos,
+                    'total_pedidos': total_pedidos,
+                    'total_clientes': total_clientes,
+                    'ventas_mes': ventas_mes
+                }
+        except Exception as e:
+            logger.error(f"Error obteniendo estadísticas: {e}")
+            return {
+                'total_productos': 0,
+                'total_pedidos': 0,
+                'total_clientes': 0,
+                'ventas_mes': 0
+            }

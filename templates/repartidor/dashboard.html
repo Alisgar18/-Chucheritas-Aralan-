@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Repartidor - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="repartidor-section">
+    <div class="container">
+        <h1 class="section-title">Mis Entregas</h1>
+        
+        <div class="pedidos-grid">
+            {% for pedido in pedidos %}
+            <div class="pedido-card">
+                <div class="pedido-header">
+                    <h3>Pedido #{{ pedido.id_pedido }}</h3>
+                    <span class="status-badge status-{{ pedido.estado }}">
+                        {{ pedido.estado }}
+                    </span>
+                </div>
+                
+                <div class="pedido-info">
+                    <p><strong>Cliente:</strong> {{ pedido.nombre_cliente }}</p>
+                    <p><strong>Dirección:</strong> {{ pedido.direccion_entrega }}</p>
+                    <p><strong>Teléfono:</strong> {{ pedido.telefono_cliente }}</p>
+                    <p><strong>Total:</strong> ${{ "%.2f"|format(pedido.monto_total) }}</p>
+                </div>
+                
+                <div class="pedido-actions">
+                    <form method="POST" action="{{ url_for('actualizar_estado_pedido', id_pedido=pedido.id_pedido) }}">
+                        <select name="estado" class="status-select">
+                            <option value="pendiente" {% if pedido.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                            <option value="en_camino" {% if pedido.estado == 'en_camino' %}selected{% endif %}>En Camino</option>
+                            <option value="entregado" {% if pedido.estado == 'entregado' %}selected{% endif %}>Entregado</option>
+                        </select>
+                        <button type="submit" class="btn-update">Actualizar</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <h3>No hay pedidos asignados</h3>
+                <p>Los nuevos pedidos aparecerán aquí</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

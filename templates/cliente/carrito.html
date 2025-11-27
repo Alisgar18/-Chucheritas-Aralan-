@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Carrito de Compras - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="carrito-section">
+    <div class="container">
+        <h1 class="section-title">Mi Carrito</h1>
+        
+        {% if carrito %}
+        <div class="carrito-items">
+            {% for item in carrito %}
+            <div class="carrito-item">
+                <img src="{{ item.foto }}" alt="{{ item.nombre }}" class="item-img">
+                <div class="item-info">
+                    <h3>{{ item.nombre }}</h3>
+                    <p class="item-price">${{ "%.2f"|format(item.precio) }}</p>
+                </div>
+                <div class="item-controls">
+                    <div class="quantity-controls">
+                        <button class="btn-quantity">-</button>
+                        <span class="quantity">{{ item.cantidad }}</span>
+                        <button class="btn-quantity">+</button>
+                    </div>
+                    <button class="btn-remove">Eliminar</button>
+                </div>
+                <div class="item-total">
+                    ${{ "%.2f"|format(item.precio * item.cantidad) }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="carrito-summary">
+            <div class="summary-total">
+                <h3>Total: ${{ "%.2f"|format(carrito|sum(attribute='subtotal')) }}</h3>
+            </div>
+            <a href="{{ url_for('checkout') }}" class="btn-checkout">Proceder al Pago</a>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h3>Tu carrito está vacío</h3>
+            <p>¡Agrega algunos productos increíbles!</p>
+            <a href="{{ url_for('catalogo') }}" class="btn-primary">Ver Catálogo</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
