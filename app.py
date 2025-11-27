@@ -116,11 +116,11 @@ def login():
             flash('¡Inicio de sesión exitoso!', 'success')
             
             # Redirigir según el tipo de usuario
-            if usuario['tipo'] == 'empleado' and usuario.get('rol') == 'administrador':
-                print("DEBUG: Deveria redirigir a admin/dashboard")
+            if usuario['tipo'] == 'empleado' and usuario.get('rol') in ['administrador','admin']:
+                print("DEBUG: Deberia redirigir a admin/dashboard")
                 return redirect(url_for('admin_dashboard'))
             elif usuario['tipo'] == 'empleado' and usuario.get('rol') == 'repartidor':
-                print("DEBUG: Deveria redirigir a repartidor/dashboard")
+                print("DEBUG: Deberia redirigir a repartidor/dashboard")
                 return redirect(url_for('repartidor_dashboard'))
             else:
                 return redirect(url_for('home'))
@@ -204,13 +204,13 @@ def checkout():
 
 # ==================== RUTAS ADMIN ====================
 @app.route("/admin")
-@requiere_rol('admin')
+@requiere_rol('administrador')
 def admin_dashboard():
     estadisticas = AdminModel.obtener_estadisticas()
     return render_template("admin/dashboard.html", stats=estadisticas)
 
 @app.route("/admin/productos")
-@requiere_rol('admin')
+@requiere_rol('administrador')
 def admin_productos():
     productos = ProductoModel.obtener_todos()
     return render_template("admin/productos/listar.html", productos=productos)
