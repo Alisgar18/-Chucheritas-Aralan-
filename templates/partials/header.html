@@ -1,3 +1,4 @@
+<!-- templates/partials/header.html -->
 <header>
     <div class="header-container">
         <div class="logo">
@@ -6,7 +7,7 @@
             </a>
         </div>
 
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="hamburger" onclick="toggleMenu()">☰ Menu</div>
 
         <nav class="nav-menu">
             <ul>
@@ -15,14 +16,18 @@
                 
                 {% if current_user %}
                     <!-- Menú según tipo de usuario -->
-                    {% if current_user.type == 'admin' %}
-                        <li><a href="{{ url_for('admin_dashboard') }}">Admin</a></li>
+                    {% if current_user.type == 'empleado' and current_user.rol == 'administrador' %}
+                        <li><a href="{{ url_for('admin_dashboard') }}">Dashboard Admin</a></li>
                         <li><a href="{{ url_for('admin_productos') }}">Productos</a></li>
-                        <li><a href="{{ url_for('admin_pedidos') }}">Pedidos</a></li>
-                    {% elif current_user.type == 'repartidor' %}
-                        <li><a href="{{ url_for('repartidor_dashboard') }}">Entregas</a></li>
+                    {% elif current_user.type == 'empleado' and current_user.rol == 'repartidor' %}
+                        <li><a href="{{ url_for('repartidor_pedidos') }}">Mis Entregas</a></li>
                     {% elif current_user.type == 'cliente' %}
-                        <li><a href="{{ url_for('carrito') }}">🛒 Carrito</a></li>
+                        <li>
+                            <a href="{{ url_for('carrito') }}">
+                                🛒 Carrito 
+                                <span class="carrito-contador" style="display: none;">0</span>
+                            </a>
+                        </li>
                         <li><a href="{{ url_for('cliente_pedidos') }}">Mis Pedidos</a></li>
                     {% endif %}
                     
@@ -34,6 +39,7 @@
                     <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Iniciar Sesión</a></li>
+                    <li><a href="{{ url_for('register') }}">Registrarse</a></li>
                 {% endif %}
             </ul>
         </nav>

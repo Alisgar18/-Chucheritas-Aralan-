@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Producto - Admin{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="mb-0">
+                        <i class="fas fa-edit"></i> Editar Producto: {{ producto.nombre }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin_editar_producto', id_producto=producto.id_producto) }}">
+                        
+                        <!-- Nombre del producto -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                Nombre del Producto <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="nombre" 
+                                   name="nombre" 
+                                   value="{{ producto.nombre }}"
+                                   required>
+                        </div>
+
+                        <!-- Categoría -->
+                        <div class="mb-3">
+                            <label for="id_categoria" class="form-label">
+                                Categoría <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" id="id_categoria" name="id_categoria" required>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria.id_categoria }}" 
+                                        {% if categoria.id_categoria == producto.id_categoria %}selected{% endif %}>
+                                    {{ categoria.descripcion }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">
+                                Descripción <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control" 
+                                      id="descripcion" 
+                                      name="descripcion" 
+                                      rows="4" 
+                                      required>{{ producto.descripcion }}</textarea>
+                        </div>
+
+                        <div class="row">
+                            <!-- Precio -->
+                            <div class="col-md-6 mb-3">
+                                <label for="precio" class="form-label">
+                                    Precio (MXN) <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="precio" 
+                                           name="precio" 
+                                           step="0.01" 
+                                           min="0.01"
+                                           value="{{ producto.precio }}"
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Existencias -->
+                            <div class="col-md-6 mb-3">
+                                <label for="existencias" class="form-label">
+                                    Existencias <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="existencias" 
+                                       name="existencias" 
+                                       min="0"
+                                       value="{{ producto.existencias }}"
+                                       required>
+                                {% if producto.existencias < 10 %}
+                                <small class="text-warning">
+                                    <i class="fas fa-exclamation-triangle"></i> Stock bajo
+                                </small>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Estado del producto -->
+                        <div class="mb-4">
+                            <label for="estado" class="form-label">
+                                Estado del Producto <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" id="estado" name="estado" required>
+                                <option value="activo" {% if producto.estado == 'activo' %}selected{% endif %}>
+                                    🟢 Activo - Visible en catálogo
+                                </option>
+                                <option value="descontinuado" {% if producto.estado == 'descontinuado' %}selected{% endif %}>
+                                    🔴 Descontinuado - Oculto del catálogo
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Información adicional -->
+                        <div class="alert alert-info">
+                            <strong><i class="fas fa-info-circle"></i> Información:</strong>
+                            <ul class="mb-0">
+                                <li>ID del producto: <strong>{{ producto.id_producto }}</strong></li>
+                                <li>Fecha de creación: <strong>{{ producto.fecha_creacion if producto.fecha_creacion else 'N/A' }}</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ url_for('admin_productos') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Cancelar
+                            </a>
+                            
+                            <div>
+                                <button type="button" 
+                                        class="btn btn-danger me-2" 
+                                        onclick="confirmarEliminar( producto.id_producto )">
+                                    <i class="fas fa-trash"></i> Descontinuar
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Guardar Cambios
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sección de actualización rápida de stock -->
+            <div class="card shadow mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-boxes"></i> Actualización Rápida de Stock
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin_actualizar_stock', id_producto=producto.id_producto) }}">
+                        <div class="row align-items-end">
+                            <div class="col-md-6">
+                                <label for="cantidad" class="form-label">
+                                    Cantidad a agregar/restar
+                                </label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="cantidad" 
+                                       name="cantidad" 
+                                       placeholder="Ej: +10 o -5">
+                                <small class="text-muted">
+                                    Usa números positivos para agregar, negativos para restar
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-info w-100">
+                                    <i class="fas fa-sync-alt"></i> Actualizar Stock
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmarEliminar(idProducto) {
+    if (confirm('¿Estás seguro de descontinuar este producto? No se eliminará de la base de datos, pero dejará de aparecer en el catálogo.')) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/admin/productos/eliminar/${idProducto}`;
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+
+// Validación del formulario
+document.querySelector('form').addEventListener('submit', function(e) {
+    const precio = parseFloat(document.getElementById('precio').value);
+    const existencias = parseInt(document.getElementById('existencias').value);
+    
+    if (precio <= 0) {
+        e.preventDefault();
+        alert('El precio debe ser mayor a 0');
+        return false;
+    }
+    
+    if (existencias < 0) {
+        e.preventDefault();
+        alert('Las existencias no pueden ser negativas');
+        return false;
+    }
+});
+</script>
+{% endblock %}

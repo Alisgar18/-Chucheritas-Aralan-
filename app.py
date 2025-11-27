@@ -3,6 +3,7 @@ from functools import wraps
 import logging
 
 from backend.models import ProductoModel, UsuarioModel, CarritoModel, PedidoModel, AdminModel
+from backend.admin_productos import AdminProductosModel
 from backend.config import Config
 from backend.database import is_database_available
 
@@ -22,12 +23,16 @@ def inject_database_status():
 def get_current_user():
     """Obtiene información del usuario actual desde la sesión"""
     if 'user_id' in session:
-        return {
+        user_data = {
             'id': session['user_id'],
             'name': session.get('user_name', 'Usuario'),
             'email': session.get('user_email', ''),
             'type': session.get('user_type', 'cliente')
         }
+        # Si es empleado, agregar el rol
+        if user_data['type'] == 'empleado':
+            user_data['rol'] = session.get('user_rol', 'empleado')
+        return user_data
     return None
 
 # ==================== MIDDLEWARE PARA ROLES ====================
@@ -76,6 +81,8 @@ def catalogo():
         flash("Error al cargar el catálogo", "error")
         return render_template("catalogo.html", productos=[])
 
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if get_current_user():
@@ -88,18 +95,37 @@ def login():
         
         email = request.form.get('email')
         password = request.form.get('password')
+        print(f"DEBUG: Intentando login con {email}")  # DEBUG
         
         usuario = UsuarioModel.iniciar_sesion(email, password)
         if usuario:
-            session.update({
+            print(f"DEBUG: Usuario autenticado - {usuario}")  # DEBUG
+            session_data = {
                 'user_id': usuario['id'],
                 'user_type': usuario['tipo'],
                 'user_name': usuario['nombre'],
                 'user_email': usuario['correo']
-            })
+            }
+            
+            # Si es empleado, guardar el rol
+            if usuario['tipo'] == 'empleado':
+                session_data['user_rol'] = usuario.get('rol', 'empleado')
+                print(f"DEBUG: Rol de sesión - {session_data['user_rol']}")  # DEBUG
+            
+            session.update(session_data)
             flash('¡Inicio de sesión exitoso!', 'success')
-            return redirect(url_for('home'))
+            
+            # Redirigir según el tipo de usuario
+            if usuario['tipo'] == 'empleado' and usuario.get('rol') == 'administrador':
+                print("DEBUG: Deveria redirigir a admin/dashboard")
+                return redirect(url_for('admin_dashboard'))
+            elif usuario['tipo'] == 'empleado' and usuario.get('rol') == 'repartidor':
+                print("DEBUG: Deveria redirigir a repartidor/dashboard")
+                return redirect(url_for('repartidor_dashboard'))
+            else:
+                return redirect(url_for('home'))
         else:
+            print("DEBUG: Login fallido")  # DEBUG
             flash('Email o contraseña incorrectos', 'error')
     
     return render_template("auth/login.html")
@@ -189,31 +215,8 @@ def admin_productos():
     productos = ProductoModel.obtener_todos()
     return render_template("admin/productos/listar.html", productos=productos)
 
-@app.route("/admin/productos/agregar", methods=['GET', 'POST'])
-@requiere_rol('admin')
-def admin_agregar_producto():
-    if request.method == 'POST':
-        # Procesar formulario de agregar producto
-        pass
-    return render_template("admin/productos/agregar.html")
-
-@app.route("/admin/pedidos")
-@requiere_rol('admin')
-def admin_pedidos():
-    return render_template("admin/pedidos/listar.html")
-
-@app.route("/admin/empleados")
-@requiere_rol('admin')
-def admin_empleados():
-    return render_template("admin/empleados/listar.html")
 
 # ==================== RUTAS REPARTIDOR ====================
-@app.route("/repartidor")
-@requiere_rol('repartidor')
-def repartidor_dashboard():
-    pedidos = PedidoModel.obtener_para_repartidor()
-    return render_template("repartidor/dashboard.html", pedidos=pedidos)
-
 @app.route("/repartidor/pedidos")
 @requiere_rol('repartidor')
 def repartidor_pedidos():
@@ -227,7 +230,7 @@ def actualizar_estado_pedido(id_pedido):
     resultado = PedidoModel.actualizar_estado(id_pedido, nuevo_estado)
     flash('Estado del pedido actualizado' if resultado['status'] == 'ok' else resultado['msg'],
           'success' if resultado['status'] == 'ok' else 'error')
-    return redirect(request.referrer or url_for('repartidor_dashboard'))
+    return redirect(request.referrer or url_for('repartidor/dashboard.html'))
 
 # ==================== MANEJO DE ERRORES ====================
 @app.errorhandler(404)
@@ -237,6 +240,179 @@ def pagina_no_encontrada(error):
 @app.errorhandler(500)
 def error_servidor(error):
     return render_template('errors/500.html'), 500
+
+
+
+# ==================== AGREGAR ESTAS RUTAS A TU app.py ====================
+# Agregar este import al inicio del archivo
+from backend.admin_productos import AdminProductosModel
+
+# ==================== RUTAS MEJORADAS DE CARRITO ====================
+
+@app.route("/api/carrito/cantidad")
+def obtener_cantidad_carrito():
+    """API para obtener cantidad de items en el carrito"""
+    if 'user_id' not in session or session.get('user_type') != 'cliente':
+        return {'cantidad': 0}
+    
+    cantidad = CarritoModel.contar_items(session['user_id'])
+    return {'cantidad': cantidad}
+
+@app.route("/carrito/actualizar/<int:id_producto>", methods=['POST'])
+@requiere_rol('cliente')
+def actualizar_carrito(id_producto):
+    """Actualiza la cantidad de un producto en el carrito"""
+    cantidad = request.form.get('cantidad', 1)
+    resultado = CarritoModel.actualizar_cantidad(session['user_id'], id_producto, cantidad)
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return resultado
+    
+    flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+    return redirect(url_for('carrito'))
+
+@app.route("/carrito/eliminar/<int:id_producto>", methods=['POST'])
+@requiere_rol('cliente')
+def eliminar_del_carrito(id_producto):
+    """Elimina un producto del carrito"""
+    resultado = CarritoModel.eliminar_item(session['user_id'], id_producto)
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return resultado
+    
+    flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+    return redirect(url_for('carrito'))
+
+@app.route("/carrito/vaciar", methods=['POST'])
+@requiere_rol('cliente')
+def vaciar_carrito():
+    """Vacía todo el carrito"""
+    resultado = CarritoModel.vaciar_carrito(session['user_id'])
+    flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+    return redirect(url_for('carrito'))
+
+# ==================== RUTAS ADMIN - PRODUCTOS ====================
+
+@app.route("/admin/productos/agregar", methods=['GET', 'POST'])
+@requiere_rol('admin')
+def admin_agregar_producto():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        id_categoria = request.form.get('id_categoria')
+        descripcion = request.form.get('descripcion')
+        precio = request.form.get('precio')
+        existencias = request.form.get('existencias', 0)
+        
+        resultado = AdminProductosModel.crear_producto(
+            nombre, id_categoria, descripcion, precio, existencias
+        )
+        
+        flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+        
+        if resultado['status'] == 'ok':
+            return redirect(url_for('admin_productos'))
+    
+    categorias = AdminProductosModel.obtener_todas_categorias()
+    return render_template("admin/productos/agregar.html", categorias=categorias)
+
+@app.route("/admin/productos/editar/<int:id_producto>", methods=['GET', 'POST'])
+@requiere_rol('admin')
+def admin_editar_producto(id_producto):
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        id_categoria = request.form.get('id_categoria')
+        descripcion = request.form.get('descripcion')
+        precio = request.form.get('precio')
+        existencias = request.form.get('existencias')
+        estado = request.form.get('estado', 'activo')
+        
+        resultado = AdminProductosModel.actualizar_producto(
+            id_producto, nombre, id_categoria, descripcion, precio, existencias, estado
+        )
+        
+        flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+        
+        if resultado['status'] == 'ok':
+            return redirect(url_for('admin_productos'))
+    
+    producto = AdminProductosModel.obtener_producto_por_id(id_producto)
+    categorias = AdminProductosModel.obtener_todas_categorias()
+    
+    if not producto:
+        flash('Producto no encontrado', 'error')
+        return redirect(url_for('admin_productos'))
+    
+    return render_template("admin/productos/editar.html", producto=producto, categorias=categorias)
+
+@app.route("/admin/productos/eliminar/<int:id_producto>", methods=['POST'])
+@requiere_rol('admin')
+def admin_eliminar_producto(id_producto):
+    """Descontinúa un producto"""
+    resultado = AdminProductosModel.eliminar_producto(id_producto)
+    flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+    return redirect(url_for('admin_productos'))
+
+@app.route("/admin/productos/stock-bajo")
+@requiere_rol('admin')
+def admin_productos_stock_bajo():
+    """Muestra productos con stock bajo"""
+    productos = AdminProductosModel.obtener_productos_bajo_stock(minimo=10)
+    return render_template("admin/productos/stock_bajo.html", productos=productos)
+
+@app.route("/admin/productos/actualizar-stock/<int:id_producto>", methods=['POST'])
+@requiere_rol('admin')
+def admin_actualizar_stock(id_producto):
+    """Actualiza el stock de un producto"""
+    cantidad = request.form.get('cantidad', 0)
+    resultado = AdminProductosModel.actualizar_existencias(id_producto, cantidad)
+    flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+    return redirect(request.referrer or url_for('admin_productos'))
+
+@app.route("/admin/categorias", methods=['GET', 'POST'])
+@requiere_rol('admin')
+def admin_categorias():
+    """Gestión de categorías"""
+    if request.method == 'POST':
+        id_categoria = request.form.get('id_categoria')
+        descripcion = request.form.get('descripcion')
+        
+        resultado = AdminProductosModel.crear_categoria(id_categoria, descripcion)
+        flash(resultado['msg'], 'success' if resultado['status'] == 'ok' else 'error')
+    
+    categorias = AdminProductosModel.obtener_todas_categorias()
+    return render_template("admin/categorias/listar.html", categorias=categorias)
+
+@app.route("/admin/productos/buscar")
+@requiere_rol('admin')
+def admin_buscar_productos():
+    """Busca productos"""
+    termino = request.args.get('q', '')
+    
+    if termino:
+        productos = AdminProductosModel.buscar_productos(termino)
+    else:
+        productos = ProductoModel.obtener_todos()
+    
+    return render_template("admin/productos/listar.html", productos=productos, termino=termino)
+
+
+# Falta logica
+@app.route("/admin/pedidos")
+@requiere_rol('admin')
+def admin_pedidos():
+    """Vista de pedidos para administrador"""
+    # Aquí implementar la lógica para obtener pedidos
+    return render_template("admin/pedidos/listar.html")
+
+@app.route("/repartidor/dashboard")
+@requiere_rol('repartidor')
+def repartidor_dashboard():
+    """Dashboard del repartidor"""
+    pedidos = PedidoModel.obtener_para_repartidor()
+    return render_template("repartidor/dashboard.html", pedidos=pedidos)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

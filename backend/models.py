@@ -95,25 +95,45 @@ class UsuarioModel:
             with get_db_cursor() as cursor:
                 # 1. Buscar como empleado
                 cursor.execute("""
-                    SELECT id_empleado AS id, nombre, correo, contrasena_hash, estado, id_puesto,
-                           'empleado' AS tipo
-                    FROM empleados
-                    WHERE correo = %s
+                    SELECT 
+                        e.id_empleado AS id, 
+                        e.nombre, 
+                        e.correo, 
+                        e.contrasena_hash, 
+                        e.estado, 
+                        e.id_puesto,
+                        p.descripcion as puesto_descripcion,
+                        p.privilegios,
+                        'empleado' AS tipo
+                    FROM empleados e
+                    LEFT JOIN puestos p ON e.id_puesto = p.id_puesto
+                    WHERE e.correo = %s
                     LIMIT 1
                 """, (correo,))
 
                 empleado = cursor.fetchone()
                 if empleado:
+                    print(f"DEBUG: Empleado encontrado - {empleado}")  # DEBUG
                     if empleado.get("estado") != "activo":
                         return None
                     if encryption.verify_password(contrasena, empleado.get("contrasena_hash")):
+                        # LÓGICA TEMPORAL - usa privilegios para determinar admin
+                        if empleado.get("privilegios") == 1:  # Si privilegios = 1 = admin
+                            empleado['rol'] = 'administrador'
+                        else:
+                            empleado['rol'] = 'repartidor'  # Por defecto repartidor
+                        print(f"DEBUG: Rol asignado - {empleado['rol']}")  # DEBUG
                         return empleado
                     return None
 
                 # 2. Buscar como cliente
                 cursor.execute("""
-                    SELECT id_cliente AS id, nombre, correo, contrasena_hash,
-                           'cliente' AS tipo
+                    SELECT 
+                        id_cliente AS id, 
+                        nombre, 
+                        correo, 
+                        contrasena_hash,
+                        'cliente' AS tipo
                     FROM clientes
                     WHERE correo = %s
                     LIMIT 1
@@ -158,6 +178,11 @@ class UsuarioModel:
 
         try:
             with get_db_cursor() as cursor:
+                # Verificar que el puesto existe
+                cursor.execute("SELECT id_puesto FROM puestos WHERE id_puesto = %s", (id_puesto,))
+                if not cursor.fetchone():
+                    return {"status": "error", "msg": "El puesto especificado no existe"}
+
                 cursor.execute("""
                     INSERT INTO empleados (id_puesto, nombre, telefono, correo, contrasena_hash, estado)
                     VALUES (%s, %s, %s, %s, %s, %s)
