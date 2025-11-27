@@ -9,6 +9,11 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+    <!-- Indicador de estado de BD -->
+    <div class="db-status {% if database_available %}connected{% else %}disconnected{% endif %}">
+        BD: {% if database_available %}Conectada{% else %}Modo Prueba{% endif %}
+    </div>
+
     {% include 'partials/header.html' %}
 
     <main class="main-content">
