@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Página No Encontrada - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content">
+            <h1>404</h1>
+            <h2>Página No Encontrada</h2>
+            <p>Lo sentimos, la página que buscas no existe.</p>
+            <a href="{{ url_for('home') }}" class="btn-primary">Volver al Inicio</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

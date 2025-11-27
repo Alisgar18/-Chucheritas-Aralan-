@@ -1,0 +1,30 @@
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Chucheritas Aralan">
+            </a>
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="{{ url_for('catalogo') }}">Catálogo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                
+                {% if current_user %}
+                    <li class="user-menu">
+                        <a href="{{ url_for('perfil') }}">
+                            👋 Hola, {{ current_user.name }}
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Iniciar Sesión</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>

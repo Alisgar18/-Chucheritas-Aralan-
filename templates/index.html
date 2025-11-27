@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    {% include 'partials/carrusel.html' %}
+</section>
+
+<section class="features-section">
+    <div class="container">
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🛍️ Variedad</h3>
+                <p>Los mejores productos para tu estilo único</p>
+            </div>
+            <div class="feature-card">
+                <h3>🚚 Envío Rápido</h3>
+                <p>Recibe tus pedidos en tiempo récord</p>
+            </div>
+            <div class="feature-card">
+                <h3>💎 Calidad</h3>
+                <p>Productos seleccionados con cuidado</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/carrousel.js') }}"></script>
+{% endblock %}

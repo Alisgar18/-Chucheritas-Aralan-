@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Mi Perfil - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="container">
+        <h1 class="section-title">Mi Perfil</h1>
+        
+        <div class="profile-card">
+            <div class="profile-info">
+                <h2>Hola, {{ current_user.name }}!</h2>
+                <p><strong>Email:</strong> {{ current_user.email }}</p>
+                <p><strong>Tipo de cuenta:</strong> {{ current_user.type | title }}</p>
+            </div>
+            
+            <div class="profile-actions">
+                <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

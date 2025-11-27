@@ -1,0 +1,33 @@
+<div class="carrusel-container">
+    <div class="carrusel-slide fade">
+        <img src="{{ url_for('static', filename='img/c2.png') }}" alt="Bienvenido a Chucheritas Aralan">
+        <div class="texto-carrusel">
+            <h2>Bienvenido a Chucheritas Aralan</h2>
+            <p>Lo mejor para tu estilo 💗</p>
+        </div>
+    </div>
+
+    <div class="carrusel-slide fade">
+        <img src="{{ url_for('static', filename='img/c2.png') }}" alt="Nuevos productos">
+        <div class="texto-carrusel">
+            <h2>Nuevos productos</h2>
+            <p>¡Novedades cada semana!</p>
+        </div>
+    </div>
+
+    <div class="carrusel-slide fade">
+        <img src="{{ url_for('static', filename='img/c3.png') }}" alt="Ofertas especiales">
+        <div class="texto-carrusel">
+            <h2>Ofertas especiales</h2>
+            <p>No te las pierdas 💖</p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('catalogo') }}" class="btn-catalogo">Ver catálogo</a>
+
+    <div class="puntos" style="text-align:center;">
+        <span class="punto" onclick="cambiarSlide(1)"></span>
+        <span class="punto" onclick="cambiarSlide(2)"></span>
+        <span class="punto" onclick="cambiarSlide(3)"></span>
+    </div>
+</div>

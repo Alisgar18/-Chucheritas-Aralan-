@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Error del Servidor - Chucheritas Aralan{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content">
+            <h1>500</h1>
+            <h2>Error del Servidor</h2>
+            <p>Algo salió mal en nuestro servidor. Por favor, intenta más tarde.</p>
+            <a href="{{ url_for('home') }}" class="btn-primary">Volver al Inicio</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
