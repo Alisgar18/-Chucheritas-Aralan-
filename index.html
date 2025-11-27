@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chucheritas Aralan</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Scripts -->
+    <script src="functions.js" defer></script>
+    <script src="carrousel.js" defer></script>
+    <script src="catalogo.js" defer></script>
 </head>
 <body>
 
@@ -23,8 +28,6 @@
             </ul>
         </nav>
     </header>
-    <script src="functions.js"></script>
-
 
 
     <!-- ---------------- SOLO CARRUSEL EN INICIO ---------------- -->
@@ -64,29 +67,41 @@
             </div>
         </div>
     </section>
-    <script src="carrousel.js"></script>
 
 
-    <!-- ---------------- CATÁLOGO (inicia oculto) ---------------- -->
+    <!-- ---------------- CATÁLOGO (cuadro vacío) ---------------- -->
     <section id="catalogo" class="seccion">
         <h2>Catálogo</h2>
 
-        <div class="catalogo-grid">
-
-            <div class="producto-card">
-                <img src="caliente-reds.png" alt="Set Caliente Reds">
-                <h3>Set de Labiales "Caliente Reds"</h3>
-                <p class="precio">$150 MXN</p>
-                <p class="descripcion">Set de 5 labiales mousse matte en tonos rojos intensos.</p>
-                <button class="btn-comprar">Agregar al carrito</button>
-            </div>
-
-        </div>
+        <!-- AQUÍ JAVASCRIPT CARGA LOS PRODUCTOS -->
+        <div class="catalogo-grid" id="catalogo-contenedor"></div>
     </section>
-    
+
+
+    <!-- ---------------- CONTACTO ---------------- -->
+    <section id="contacto" class="seccion">
+        <h2>Contacto</h2>
+        <p>¡Escríbenos! Te responderemos lo más pronto posible 😊</p>
+
+        <form class="form-contacto" onsubmit="enviarFormulario(event)">
+            <label>Nombre:</label>
+            <input type="text" id="nombre" required>
+
+            <label>Correo electrónico:</label>
+            <input type="email" id="correo" required>
+
+            <label>Mensaje:</label>
+            <textarea id="mensaje" rows="5" required></textarea>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+
+        <div id="mensaje-confirmacion" class="mensaje-confirmacion"></div>
+    </section>
 
 </body>
 </html>
+
 
 
 

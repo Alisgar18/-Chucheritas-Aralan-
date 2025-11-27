@@ -230,3 +230,42 @@ body {
         .btn-comprar:hover {
             background: #ff4fab;
         }
+
+        /* ------- CONTACTO ------- */
+.form-contacto {
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-contacto input,
+.form-contacto textarea {
+    padding: 10px;
+    border: 1px solid #ffc2d6;
+    border-radius: 10px;
+}
+
+.btn-enviar {
+    background-color: #ff78a5;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-enviar:hover {
+    opacity: 0.8;
+}
+
+.mensaje-confirmacion {
+    margin-top: 15px;
+    padding: 10px;
+    background: #d7ffd7;
+    border: 1px solid #7bc47f;
+    border-radius: 10px;
+    display: none;
+}
