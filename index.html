@@ -4,247 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chucheritas Aralan</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #ffe6f3;
-        }
-
-        /* ---------------- HEADER ---------------- */
-        header {
-            background: #ff7ebf;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header img {
-            height: 90px;
-            animation: latido 2s infinite;
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
-        }
-
-        @keyframes latido {
-            0% { transform: scale(1);}
-            50% { transform: scale(1.08);}
-            100% { transform: scale(1);}
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            color: #ffe1f2;
-            transform: scale(1.1);
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 32px;
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                flex-direction: column;
-                background: #ff7ebf;
-                width: 100%;
-                padding: 20px;
-            }
-            nav ul.active {
-                display: flex;
-            }
-            .hamburger {
-                display: block;
-            }
-        }
-
-        /* ---------------- SECCIONES OCULTABLES ---------------- */
-        .seccion {
-            display: none;
-        }
-        .seccion.activa {
-            display: block;
-        }
-
-        /* ---------------- CARRUSEL ---------------- */
-        #inicio {
-            margin-top: 20px;
-        }
-
-        .carrusel-container {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto 60px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.18);
-        }
-
-        .carrusel-slide {
-            display: none;
-        }
-
-        .carrusel-slide img {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-        }
-
-        .texto-carrusel {
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 0, 120, 0.5);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 15px;
-            text-align: center;
-            width: 70%;
-            backdrop-filter: blur(3px);
-        }
-
-        .texto-carrusel h2 {
-            margin: 0;
-            font-size: 28px;
-        }
-
-        .texto-carrusel p {
-            margin: 5px 0 0;
-            font-size: 16px;
-        }
-
-        .btn-catalogo {
-            position: absolute;
-            bottom: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff7ebf;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 15px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .btn-catalogo:hover {
-            background: #ff4fab;
-        }
-
-        .punto {
-            height: 12px;
-            width: 12px;
-            margin: 3px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .active {
-            background-color: #ff3b88;
-        }
-
-        .fade {
-            animation: fadeEffect 1.5s ease-in-out;
-        }
-
-        @keyframes fadeEffect {
-            from {opacity: 0.4;}
-            to {opacity: 1;}
-        }
-
-        /* ---------------- CATÁLOGO ---------------- */
-        #catalogo {
-            padding: 60px 20px;
-            background: #fff0f8;
-            border-top: 4px solid #ffaada;
-        }
-
-        #catalogo h2 {
-            margin-bottom: 20px;
-            font-size: 32px;
-            color: #ff3b88;
-        }
-
-        .catalogo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .producto-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            padding: 15px;
-            text-align: center;
-        }
-
-        .producto-card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .precio {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ff3b88;
-        }
-
-        .btn-comprar {
-            background: #ff7ebf;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .btn-comprar:hover {
-            background: #ff4fab;
-        }
-
-    </style>
-
-    <script>
-        /* Menú hamburguesa */
-        function toggleMenu() {
-            document.querySelector("nav ul").classList.toggle("active");
-        }
-    </script>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- ---------------- HEADER ---------------- -->
     <header>
         <img src="logo.png" alt="Logo Chucheritas Aralan">
-
+        
         <div class="hamburger" onclick="toggleMenu()">☰</div>
 
         <nav>
@@ -256,6 +23,7 @@
             </ul>
         </nav>
     </header>
+    <script src="functions.js"></script>
 
 
 
@@ -296,7 +64,7 @@
             </div>
         </div>
     </section>
-
+    <script src="carrousel.js"></script>
 
 
     <!-- ---------------- CATÁLOGO (inicia oculto) ---------------- -->
@@ -315,53 +83,7 @@
 
         </div>
     </section>
-
-
-
-    <!-- ---------------- JS DEL CARRUSEL + CONTROL DE SECCIONES ---------------- -->
-<script>
-/* -------- CARRUSEL -------- */
-let slideIndex = 1;
-mostrarSlide(slideIndex);
-
-function cambiarSlide(n) {
-    mostrarSlide(slideIndex = n);
-}
-
-function mostrarSlide(n) {
-    let slides = document.getElementsByClassName("carrusel-slide");
-    let puntos = document.getElementsByClassName("punto");
-
-    if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length;
-
-    for (let i = 0; i < slides.length; i++)
-        slides[i].style.display = "none";
-
-    for (let i = 0; i < puntos.length; i++)
-        puntos[i].classList.remove("active");
-
-    slides[slideIndex - 1].style.display = "block";
-    puntos[slideIndex - 1].classList.add("active");
-}
-
-setInterval(() => {
-    slideIndex++;
-    mostrarSlide(slideIndex);
-}, 5000);
-
-
-/* -------- CONTROL DE SECCIONES -------- */
-function mostrarSeccion(nombre) {
-    document.querySelectorAll(".seccion").forEach(sec =>
-        sec.classList.remove("activa")
-    );
-
-    document.getElementById(nombre).classList.add("activa");
-
-    document.querySelector("nav ul").classList.remove("active");
-}
-</script>
+    
 
 </body>
 </html>
