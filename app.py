@@ -118,6 +118,7 @@ def login():
             # Redirigir según el tipo de usuario
             if usuario['tipo'] == 'empleado' and usuario.get('rol') in ['administrador','admin']:
                 print("DEBUG: Deberia redirigir a admin/dashboard")
+                print("Entro condicion empleado")
                 return redirect(url_for('admin_dashboard'))
             elif usuario['tipo'] == 'empleado' and usuario.get('rol') == 'repartidor':
                 print("DEBUG: Deberia redirigir a repartidor/dashboard")
