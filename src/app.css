@@ -1,0 +1,195 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* =============================================
+   Estilos Globales
+   ============================================= */
+
+/* ── Variables ── */
+:root {
+  --rosa: #ff7ebf;
+  --rosa-claro: #ffe6f3;
+  --rosa-hover: #ff4fab;
+  --rosa-texto: #e8417a;
+  --rosa-fondo: #fff0f8;
+  --rosa-borde: #ffb8d9;
+  --blanco: #ffffff;
+  --gris-suave: #f9f0f5;
+  --gris-texto: #6b5a63;
+  --negro-suave: #2d1f28;
+  --sombra: rgba(255, 90, 160, 0.12);
+  --sombra-fuerte: rgba(255, 60, 130, 0.22);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  @apply box-border m-0 p-0;
+}
+html {
+  @apply scroll-smooth;
+}
+body {
+  @apply text-[color:var(--negro-suave)] leading-[1.65] min-h-screen;
+  font-family: var(--font-body);
+  background: var(--rosa-fondo);
+}
+img {
+  @apply block max-w-full;
+}
+a {
+  @apply text-inherit no-underline;
+}
+button {
+  @apply cursor-pointer;
+  font-family: inherit;
+}
+ul {
+  list-style: none;
+}
+
+/* ── Contenedor ── */
+.contenido-principal {
+  @apply min-h-[calc(100vh_-_200px)] pt-8;
+}
+.container {
+  @apply max-w-[1200px] mx-auto my-0 px-6 py-0;
+}
+
+/* ── Tipografía ── */
+.section-title {
+  @apply text-[clamp(1.8rem,4vw,2.6rem)] text-[color:var(--rosa-texto)] 
+    text-center mb-[0.4rem];
+  font-family: var(--font-display);
+}
+.section-subtitle {
+  @apply text-center text-[color:var(--gris-texto)] text-[1.05rem] mb-10;
+}
+
+/* ── Botones ── */
+.btn-primary {
+  @apply inline-flex items-center gap-[0.4rem] text-[color:var(--blanco)] 
+    rounded-[var(--radius-pill)] font-semibold text-[0.95rem] transition-[background] 
+    duration-[var(--transition),transform] ease-[var(--transition)] 
+    shadow-[0_4px_14px_var(--sombra-fuerte)] whitespace-nowrap px-[1.6rem] py-[0.7rem] 
+    border-[none] hover:-translate-y-0.5;
+
+  background: var(--rosa);
+}
+.btn-primary:hover {
+  background: var(--rosa-hover);
+}
+.btn-outline {
+  @apply inline-flex items-center gap-[0.4rem] text-[color:var(--rosa-texto)] 
+    rounded-[var(--radius-pill)] font-semibold border-[color:var(--rosa-borde)] 
+    transition-all duration-[var(--transition)] px-6 py-[0.65rem] border-2 border-solid 
+    hover:border-[color:var(--rosa)];
+  background: transparent;
+}
+.btn-outline:hover {
+  background: var(--rosa-claro);
+}
+
+/* ── Cards ── */
+.card {
+  @apply rounded-[var(--radius-lg)] shadow-[0_4px_20px_var(--sombra)] overflow-hidden;
+  background: var(--blanco);
+}
+
+/* ── Formularios ── */
+.form-group {
+  @apply flex flex-col gap-[0.4rem];
+}
+.form-label {
+  @apply font-medium text-[0.9rem] text-[color:var(--gris-texto)];
+}
+.form-input,
+.form-select,
+.form-textarea {
+  @apply border-[color:var(--rosa-borde)] rounded-[var(--radius-md)] text-[0.95rem] 
+    text-[color:var(--negro-suave)] transition-[border-color] 
+    duration-[var(--transition),box-shadow] ease-[var(--transition)] px-4 py-3 border-2 
+    border-solid;
+    
+  font-family: var(--font-body);
+  background: var(--blanco);
+  outline: none;
+}
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  @apply border-[color:var(--rosa)] shadow-[0_0_0_3px_rgba(255,126,191,0.2)];
+}
+.form-textarea {
+  @apply resize-y min-h-[110px];
+}
+
+/* ── Badges ── */
+.badge {
+  @apply inline-block rounded-[var(--radius-pill)] text-[0.78rem] font-semibold 
+    capitalize px-3 py-1;
+}
+.badge-activo,
+.badge-entregado {
+  @apply text-[#176438];
+  background: #d4f5e0;
+}
+.badge-pendiente,
+.badge-en_camino {
+  @apply text-[#8a6200];
+  background: #fff2cc;
+}
+.badge-descontinuado {
+  @apply text-[#9b1d35];
+  background: #ffe0e6;
+}
+
+/* ── Estado vacío ── */
+.empty-state {
+  @apply text-center text-[color:var(--gris-texto)] px-5 py-20;
+}
+.empty-state h3 {
+  @apply text-[1.6rem] text-[color:var(--rosa-texto)] mb-[0.6rem];
+  font-family: var(--font-display);
+}
+.empty-icon {
+  @apply text-[3.5rem] mb-4;
+}
+
+/* ── Alertas ── */
+.alert {
+  @apply rounded-[var(--radius-md)] text-[0.9rem] 
+    font-medium mb-4 px-[1.2rem] py-[0.85rem];
+}
+.alert-success {
+  @apply text-[#25ec7b];
+  background: #d4f5e0;
+}
+.alert-error {
+  @apply text-[#e01f42];
+  background: #ffe0e6;
+}
+.alert-info {
+  @apply text-[#1377cf];
+  background: #e0f0ff;
+}
+.alert-warning {
+  @apply text-[#f7d30a];
+  background: #fcffe0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .container {
+    @apply px-4 py-0;
+  }
+}
