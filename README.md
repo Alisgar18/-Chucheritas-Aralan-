@@ -129,6 +129,7 @@ El proyecto actualmente usa datos de prueba en `src/lib/data.js`. Lo que falta c
 
 | Página | Ruta | Estado |
 |---|---|---|
+| Layout base | `/routes/+layout.svelte` | 🔧 En progreso |
 | Inicio | `/` | 🔧 En progreso |
 | Catálogo | `/catalogo` | ⬜ Pendiente |
 | Carrito | `/carrito` | ⬜ Pendiente |
@@ -148,13 +149,17 @@ Cada integrante trabaja en su propia rama según su rol:
 
 | Integrante | Rama | Rol |
 |---|---|---|
-| _(front 1)_ | `front/nombre` | Frontend |
+| _Alis_ | `main` | Administradora de proyecto |
+| _(front 2)_ | `front/nombre` | Frontend |
 | _(front 2)_ | `front/nombre` | Frontend |
 | _(back 1)_  | `back/nombre`  | Backend  |
 | _(back 2)_  | `back/nombre`  | Backend  |
 
 
-**Flujo:**
+**NOTA**
+
+
+## Flujo:
 
 1. Desde GitHub Desktop, crea tu rama antes de empezar a trabajar
 2. Haz tus cambios en VS Code
