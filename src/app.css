@@ -1,13 +1,21 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss';
+@plugin "daisyui";
 
-/* =============================================
-   Estilos Globales
-   ============================================= */
+/* ── Tema claro ── */
+@plugin "daisyui/theme" {
+  name: "chucheritas";
+  default: true;
+  color-scheme: light;
 
-/* ── Variables ── */
-:root {
+  --color-primary: #ff7ebf;
+  --color-primary-content: #2d1f28;
+  --color-secondary: #e8417a;
+  --color-base-100: #ffffff;
+  --color-base-200: #fff0f8;
+  --color-base-300: #ffe6f3;
+  --color-base-content: #2d1f28;
+  --color-neutral: #6b5a63;
+
   --rosa: #ff7ebf;
   --rosa-claro: #ffe6f3;
   --rosa-hover: #ff4fab;
@@ -28,6 +36,46 @@
   --radius-pill: 999px;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ── Tema oscuro ── */
+@plugin "daisyui/theme" {
+  name: "chucheritas_dark";
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-primary: #ff7ebf;
+  --color-primary-content: #2d1f28;
+  --color-secondary: #ff4fab;
+  --color-base-100: #2d1f28;
+  --color-base-200: #3d2a36;
+  --color-base-300: #4e3545;
+  --color-base-content: #ffe6f3;
+  --color-neutral: #ffb8d9;
+
+  --rosa: #ff7ebf;
+  --rosa-claro: #4e3545;
+  --rosa-hover: #ff4fab;
+  --rosa-texto: #ffb8d9;
+  --rosa-fondo: #3d2a36;
+  --rosa-borde: #7a4d66;
+  --blanco: #3d2a36;
+  --gris-suave: #3d2a36;
+  --gris-texto: #ffb8d9;
+  --negro-suave: #ffe6f3;
+  --sombra: rgba(255, 90, 160, 0.2);
+  --sombra-fuerte: rgba(255, 60, 130, 0.35);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================
+   Estilos Globales
+   ============================================= */
 
 /* ── Reset ── */
 *,
@@ -82,7 +130,6 @@ ul {
     duration-[var(--transition),transform] ease-[var(--transition)] 
     shadow-[0_4px_14px_var(--sombra-fuerte)] whitespace-nowrap px-[1.6rem] py-[0.7rem] 
     border-[none] hover:-translate-y-0.5;
-
   background: var(--rosa);
 }
 .btn-primary:hover {
@@ -119,7 +166,6 @@ ul {
     text-[color:var(--negro-suave)] transition-[border-color] 
     duration-[var(--transition),box-shadow] ease-[var(--transition)] px-4 py-3 border-2 
     border-solid;
-    
   font-family: var(--font-body);
   background: var(--blanco);
   outline: none;
@@ -167,8 +213,7 @@ ul {
 
 /* ── Alertas ── */
 .alert {
-  @apply rounded-[var(--radius-md)] text-[0.9rem] 
-    font-medium mb-4 px-[1.2rem] py-[0.85rem];
+  @apply rounded-[var(--radius-md)] text-[0.9rem] font-medium mb-4 px-[1.2rem] py-[0.85rem];
 }
 .alert-success {
   @apply text-[#25ec7b];

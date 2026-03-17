@@ -21,6 +21,7 @@
 </footer>
 
 <style>
+  @reference "../../app.css";
 footer {
   @apply text-[white] mt-20 pt-[50px];
   background: var(--rosa);

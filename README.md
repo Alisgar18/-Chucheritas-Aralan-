@@ -48,7 +48,7 @@ src/
 │
 ├── lib/
 │   ├── assets/           → Imágenes, logo, iconos
-│   ├── components/       → Componentes reutilizables (Header, Footer, etc.)
+│   ├── components/       → Componentes reutilizables .svelte (Header, Footer, etc.)
 │   └── stores/           → Estado global de la app (carrito, sesión)
 │
 └── routes/               → Cada carpeta = una página/URL
@@ -74,8 +74,9 @@ src/
 |---|---|
 | [SvelteKit](https://kit.svelte.dev/) | Framework principal (rutas, páginas, componentes) |
 | [Svelte 5](https://svelte.dev/) | Sintaxis de componentes — usa `$state`, `$props`, `onclick` |
-| [Tailwind CSS](https://tailwindcss.com/) | Estilos — se usa con `@apply` dentro de cada componente |
+| [Tailwind CSS 4](https://tailwindcss.com/) | Estilos — se usa con `@apply` dentro de cada componente |
 | [Lucide Svelte](https://lucide.dev/) | Íconos |
+| [DaisyUI 4](https://daisyui.com/)| Biblioteca de componentes|
 
 ### Svelte 5 — sintaxis importante
 
@@ -99,19 +100,6 @@ Este proyecto usa **Svelte 5**. Los tutoriales de YouTube suelen mostrar Svelte 
 <button on:click={() => count++}>Click</button>
 <slot />
 ```
-
-### Colores de la marca
-
-Los colores se definen en `tailwind.config.js` (pendiente de configurar) y se usan así:
-
-| Variable | Color | Clase Tailwind |
-|---|---|---|
-| Rosa principal | `#ff7ebf` | `bg-rosa` |
-| Rosa claro | `#ffe6f3` | `bg-rosa-claro` |
-| Rosa hover | `#ff4fab` | `bg-rosa-hover` |
-| Rosa texto | `#e8417a` | `text-rosa-texto` |
-| Rosa fondo | `#fff0f8` | `bg-rosa-fondo` |
-| Rosa borde | `#ffb8d9` | `border-rosa-borde` |
 
 ### Rutas
 

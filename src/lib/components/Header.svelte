@@ -68,6 +68,7 @@
 <!--Estilos del componente-->
 
 <style>
+  @reference "../../app.css";
   header {
   @apply sticky z-[100] w-[min(92%,1100px)] rounded-[var(--radius-lg)] 
     shadow-[0_6px_28px_var(--sombra-fuerte)] mt-4 mb-0 mx-auto top-4;
