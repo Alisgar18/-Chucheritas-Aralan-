@@ -120,8 +120,8 @@ El proyecto actualmente usa datos de prueba en `src/lib/data.js`. Lo que falta c
 - **CMS** — para gestionar productos y contenido sin tocar código
 - **Base de datos** — para usuarios, pedidos e inventario
 - **API de Instagram** — para publicaciones automáticas desde el panel
-- **Flujo de compra** — pedidos por WhatsApp o similar (sin cobro con tarjeta por ahora)
-- **Panel de ventas** — para que Alis y las administradoras vean qué se ha vendido
+- **Flujo de compra** — comprar pedido y gestionar tipos de pago
+- **Panel de ventas** — para que las administradoras vean qué se ha vendido
 
 ---
 
