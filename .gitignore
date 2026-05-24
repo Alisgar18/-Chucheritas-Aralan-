@@ -1,4 +1,7 @@
 node_modules
+assets-local
+
+ScriptDB.sql
 
 # Output
 .output
@@ -23,4 +26,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Windows
-desktop.ini
+desktop.iniassets-local/
