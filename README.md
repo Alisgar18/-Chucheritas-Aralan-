@@ -149,12 +149,11 @@ Cada integrante trabaja en su propia rama según su rol:
 
 | Integrante | Rama | Rol |
 |---|---|---|
-| _Alis_ | `main` | Administradora de proyecto |
-| _(front 2)_ | `front/nombre` | Frontend |
-| _(front 2)_ | `front/nombre` | Frontend |
-| _(back 1)_  | `back/nombre`  | Backend  |
-| _(back 2)_  | `back/nombre`  | Backend  |
-
+| _Alison_ | `main` | Administradora de proyecto |
+| _Alison_ | `front_Alison` | Frontend |
+| _Milton_ | `front_Milton` | Frontend |
+| _Luis Antonio_  | `back_Antonio`  | Backend  |
+| _Luis Arturo_  | `back_Arturo`  | Backend  |
 
 **NOTA**
 
