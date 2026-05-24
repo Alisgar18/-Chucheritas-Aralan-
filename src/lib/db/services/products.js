@@ -1,5 +1,6 @@
 // src/lib/db/services/products.js
 import { supabase } from "../public-client.js";
+import { compressImages } from "../utils/picEditor.js";
 
 // ─────────────────────────────────────────
 // CONSULTAS — accesibles para todos
@@ -8,7 +9,7 @@ import { supabase } from "../public-client.js";
 /**
  * Devuelve todos los productos activos con su categoría y fotos.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getProducts() {
   const { data, error } = await supabase
@@ -31,7 +32,7 @@ export async function getProducts() {
  * Devuelve un producto por su ID con categoría y fotos.
  *
  * @param {number} productId
- * @returns {{ data: object | null, error: string | null }}
+ * @returns {{ data: object, error: null || data: null, error: string }}
  */
 export async function getProductById(productId) {
   const { data, error } = await supabase
@@ -54,7 +55,7 @@ export async function getProductById(productId) {
  * Devuelve productos filtrados por categoría.
  *
  * @param {string} categoryId
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getProductsByCategory(categoryId) {
   const { data, error } = await supabase
@@ -77,7 +78,7 @@ export async function getProductsByCategory(categoryId) {
 /**
  * Devuelve todas las categorías.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getCategories() {
   const { data, error } = await supabase
@@ -97,7 +98,7 @@ export async function getCategories() {
  * Agrega un producto con sus fotos usando la función de la DB.
  *
  * @param {{ categoryId: string, name: string, description: string, price: number, stock: number, pictureUrls: string[] }} data
- * @returns {{ productId: number | null, error: string | null }}
+ * @returns {{ productId: number, error: null || productId: null, error: string }}
  */
 export async function addProduct({
   categoryId,
@@ -105,8 +106,26 @@ export async function addProduct({
   description,
   price,
   stock,
-  pictureUrls = [],
+  pictureFiles = [],
 }) {
+  // Comprime y genera path+buffer
+  const compressedPictures = await compressImages(pictureFiles, {
+    prefix: `${categoryId}_${name}`,
+    quality: 75,
+  });
+
+  // Subir imágenes
+  const uploadedPictures = await Promise.all(
+    compressedPictures.map(async ({ path, buffer }) => {
+      return await uploadProductPicture(path, buffer);
+    }),
+  );
+
+  // Extraer URLs válidas
+  const pictureUrls = uploadedPictures
+    .filter((pic) => !pic.error && pic.url)
+    .map((pic) => pic.url);
+
   const { data, error } = await supabase.rpc("add_product", {
     p_category_id: categoryId,
     p_name: name,
@@ -116,8 +135,10 @@ export async function addProduct({
     p_picture_urls: pictureUrls,
   });
 
-  if (error) return { productId: null, error: error.message };
-  return { productId: data, error: null };
+  return {
+    productId: data,
+    error: error?.message ?? null,
+  };
 }
 
 /**
@@ -149,26 +170,28 @@ export async function updateProduct(
 }
 
 /**
- * Sube una foto al storage de Supabase y devuelve la URL pública.
+ * Sube una foto al storage de Supabase y devuelve la URL.
  * Usar antes de llamar addProduct o updateProduct.
  *
- * @param {File} file
- * @param {number} productId  — usado para nombrar el archivo
- * @returns {{ url: string | null, error: string | null }}
+ * @param {string} storagePath
+ * @param {File} fileBuffer
+ * @param {boolean} upsert
+ * @returns {{ url: string , error: null || url: null, error: string }}
  */
-export async function uploadProductPicture(file, productId) {
-  const ext = file.name.split(".").pop();
-  const filename = `${productId}_${Date.now()}.${ext}`;
 
-  const { error: uploadError } = await supabase.storage
-    .from("fotos-productos")
-    .upload(filename, file, { upsert: true });
+async function uploadProductPicture(storagePath, fileBuffer, upsert = false) {
+  const bucket = "product_pictures";
 
-  if (uploadError) return { url: null, error: uploadError.message };
+  const { data, error: uploadError } = await supabase.storage
+    .from(bucket)
+    .upload(storagePath, fileBuffer, {
+      contentType: "image/webp",
+      cacheControl: "3600",
+      upsert: upsert,
+    });
 
-  const { data } = supabase.storage
-    .from("fotos-productos")
-    .getPublicUrl(filename);
-
-  return { url: data.publicUrl, error: null };
+  return {
+    url: data?.path ?? null,
+    error: uploadError?.message ?? null,
+  };
 }

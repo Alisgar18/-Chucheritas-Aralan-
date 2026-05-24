@@ -74,7 +74,7 @@ export async function createOrder({
 /**
  * Devuelve todos los pedidos del cliente autenticado con sus detalles.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[] , error: null ||  data: null, error: string }}
  */
 export async function getMyOrders() {
   const { data, error } = await supabase
@@ -104,7 +104,7 @@ export async function getMyOrders() {
 /**
  * Devuelve los pedidos asignados al repartidor autenticado.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getAssignedOrders() {
   const { data, error } = await supabase
@@ -155,7 +155,7 @@ export async function updateOrderStatus(orderId, status) {
  * Opcionalmente filtrar por status.
  *
  * @param {{ status?: string }} filters
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getAllOrders({ status } = {}) {
   let query = supabase

@@ -8,7 +8,7 @@ import { supabase } from "../public-client.js";
 /**
  * Devuelve las ventas del día desde la vista v_today_sales.
  *
- * @returns {{ data: object | null, error: string | null }}
+ * @returns {{ data: object, error: null || data: null, error: string }}
  */
 export async function getTodaySales() {
   const { data, error } = await supabase
@@ -23,7 +23,7 @@ export async function getTodaySales() {
 /**
  * Devuelve el top 10 de productos más vendidos desde v_top_products.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getTopProducts() {
   const { data, error } = await supabase.from("v_top_products").select("*");
@@ -39,7 +39,7 @@ export async function getTopProducts() {
 /**
  * Devuelve todos los clientes.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getClients() {
   const { data, error } = await supabase
@@ -91,7 +91,7 @@ export async function getEmployees() {
  * Devuelve solo los repartidores activos.
  * Útil al crear un pedido para asignar repartidor.
  *
- * @returns {{ data: object[] | null, error: string | null }}
+ * @returns {{ data: object[], error: null || data: null, error: string }}
  */
 export async function getDeliverers() {
   const { data, error } = await supabase
