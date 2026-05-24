@@ -5,5 +5,5 @@ import { SUPABASE_SECRET_KEY } from "$env/static/private";
 
 export const supabaseAdmin = createClient(
   PUBLIC_SUPABASE_URL,
-  SUPABASE_SERVICE_ROLE_KEY,
+  SUPABASE_SECRET_KEY,
 );
