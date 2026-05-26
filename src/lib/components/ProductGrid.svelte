@@ -1,7 +1,7 @@
 <script>
     import ProductCard from "$lib/components/ProductCard.svelte";
-
-    export let products = [];
+    import { getProducts } from "../db/services/products.js";
+    export let products = getProducts.data;
 </script>
 
 <div class="flex flex-wrap justify-center gap-6">
