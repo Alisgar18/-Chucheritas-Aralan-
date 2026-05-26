@@ -2,6 +2,7 @@
 <script>
     import { goto } from "$app/navigation";
     import { ArrowRight, ShoppingBag } from "lucide-svelte";
+    import { getProductPictureUrl } from "../db/services/products";
 
     export let id;
     export let name;
@@ -13,7 +14,9 @@
         goto(`/productos/${id}`);
     }
 
-    function getImages() {}
+    function getImages() {
+        image = getProductPictureUrl(image);
+    }
 </script>
 
 <button
