@@ -1,0 +1,162 @@
+[2026-05-26T15:39:22.253Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:39:27.063Z] [ERROR] [2m9:39:27 a.m.[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: src/lib/components/ProductGrid.svelte:4:4 Cannot use `export let` in runes mode — use `$props()` instead
+https://svelte.dev/e/legacy_export_invalid
+  Plugin: [35mvite-plugin-svelte:compile[39m
+  File: [36msrc/lib/components/ProductGrid.svelte[39m:4:4
+[33m   2 |      import ProductCard from "$lib/components/ProductCard.svelte";
+   3 |  
+   4 |      export let products = [];
+                                     ^
+   5 |  </script>
+   6 |  [39m
+[2026-05-26T15:39:27.092Z] [LOG  ] 
+
+
+
+
+
+
+
+
+
+
+
+
+[2026-05-26T15:39:27.092Z] [ERROR] [2m9:39:27 a.m.[22m [31m[1m[vite][22m[39m [31mInternal server error: src/lib/components/ProductGrid.svelte:4:4 Cannot use `export let` in runes mode — use `$props()` instead
+https://svelte.dev/e/legacy_export_invalid[39m
+  Plugin: [35mvite-plugin-svelte:compile[39m
+  File: [36msrc/lib/components/ProductGrid.svelte[39m:4:4
+[33m   2 |      import ProductCard from "$lib/components/ProductCard.svelte";
+   3 |  
+   4 |      export let products = [];
+                                     ^
+   5 |  </script>
+   6 |  [39m
+[2026-05-26T15:40:46.597Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:40:56.689Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T15:42:10.171Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:42:26.081Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T15:45:15.241Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:45:30.031Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T15:46:05.881Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:46:22.516Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T15:48:36.365Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:48:51.337Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T15:50:16.186Z] [LOG  ] 
+[2026-05-26T15:50:16.187Z] [LOG  ] [2m9:50:16 a.m.[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/routes/catalogo/+page.svelte, /src/app.css[22m
+[2026-05-26T15:50:16.187Z] [LOG  ] 
+[2026-05-26T15:50:16.188Z] [LOG  ] [2m9:50:16 a.m.[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/db/services/products.js[22m
+[2026-05-26T15:50:48.335Z] [LOG  ] 
+[2026-05-26T15:50:48.336Z] [LOG  ] [2m9:50:48 a.m.[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/routes/catalogo/+page.svelte, /src/app.css[22m
+[2026-05-26T15:50:48.337Z] [LOG  ] 
+[2026-05-26T15:50:48.338Z] [LOG  ] [2m9:50:48 a.m.[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/db/services/products.js[22m
+[2026-05-26T15:50:55.774Z] [LOG  ] 
+[2026-05-26T15:50:55.775Z] [LOG  ] [2m9:50:55 a.m.[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/routes/catalogo/+page.svelte, /src/app.css[22m
+[2026-05-26T15:50:55.776Z] [LOG  ] 
+[2026-05-26T15:50:55.776Z] [LOG  ] [2m9:50:55 a.m.[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/db/services/products.js[22m
+[2026-05-26T15:52:47.809Z] [LOG  ] 
+[2026-05-26T15:52:47.809Z] [LOG  ] [2m9:52:47 a.m.[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/routes/catalogo/+page.svelte, /src/app.css[22m
+[2026-05-26T15:52:47.810Z] [LOG  ] 
+[2026-05-26T15:52:47.810Z] [LOG  ] [2m9:52:47 a.m.[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/db/services/products.js[22m
+[2026-05-26T15:57:59.488Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T15:58:13.348Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T15:59:46.196Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T16:00:01.934Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T16:03:14.432Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T16:03:14.621Z] [LOG  ] URL: https://zgasdkcezsywrhkodywu.supabase.co
+[2026-05-26T16:03:14.621Z] [LOG  ] KEY: sb_publishable_YzWSz3zeoA_V7ig
+[2026-05-26T16:03:29.570Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T16:08:06.890Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T16:08:07.126Z] [ERROR] [2m10:08:07 a.m.[22m [31m[1m[vite][22m[39m [31m[2m(ssr)[22m[39m [31mError when evaluating SSR module /src/routes/catalogo/+page.svelte: PUBLIC_SUPABASE_KEY is not defined[39m
+      at /home/luis/-Chucheritas-Aralan-/src/lib/db/public-client.js:7:59
+      at async ESModulesEvaluator.runInlinedModule (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+      at async SSRCompatModuleRunner.directRequest (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+      at async SSRCompatModuleRunner.directRequest (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+      at async SSRCompatModuleRunner.cachedRequest (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+      at async eval (/home/luis/-Chucheritas-Aralan-/src/lib/db/services/products.js:2:1)
+      at async ESModulesEvaluator.runInlinedModule (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+      at async SSRCompatModuleRunner.directRequest (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+      at async SSRCompatModuleRunner.directRequest (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+      at async SSRCompatModuleRunner.cachedRequest (file:///home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+[2026-05-26T16:08:07.129Z] [ERROR] 
+[1;31m[500] GET /catalogo[0m
+ReferenceError: PUBLIC_SUPABASE_KEY is not defined
+    at /home/luis/-Chucheritas-Aralan-/src/lib/db/public-client.js:7:59
+    at async ESModulesEvaluator.runInlinedModule (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+    at async SSRCompatModuleRunner.cachedRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+    at async eval (src/lib/db/services/products.js:2:1)
+[2026-05-26T16:08:07.994Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[2026-05-26T16:08:08.123Z] [ERROR] 
+[1;31m[500] GET /catalogo[0m
+ReferenceError: PUBLIC_SUPABASE_KEY is not defined
+    at /home/luis/-Chucheritas-Aralan-/src/lib/db/public-client.js:7:59
+    at async ESModulesEvaluator.runInlinedModule (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+    at async SSRCompatModuleRunner.cachedRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+    at async eval (src/lib/db/services/products.js:2:1)
+[2026-05-26T16:08:09.353Z] [ERROR] 
+[1;31m[500] GET /catalogo[0m
+ReferenceError: PUBLIC_SUPABASE_KEY is not defined
+    at /home/luis/-Chucheritas-Aralan-/src/lib/db/public-client.js:7:59
+    at async ESModulesEvaluator.runInlinedModule (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+    at async SSRCompatModuleRunner.cachedRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+    at async eval (src/lib/db/services/products.js:2:1)
+[2026-05-26T16:08:13.245Z] [ERROR] 
+[1;31m[500] GET /catalogo[0m
+ReferenceError: PUBLIC_SUPABASE_KEY is not defined
+    at /home/luis/-Chucheritas-Aralan-/src/lib/db/public-client.js:7:59
+    at async ESModulesEvaluator.runInlinedModule (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+    at async SSRCompatModuleRunner.cachedRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+    at async eval (src/lib/db/services/products.js:2:1)
+[2026-05-26T16:08:34.285Z] [ERROR] 
+[1;31m[500] GET /catalogo[0m
+ReferenceError: PUBLIC_SUPABASE_KEY is not defined
+    at /home/luis/-Chucheritas-Aralan-/src/lib/db/public-client.js:7:59
+    at async ESModulesEvaluator.runInlinedModule (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:913:3)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1146:59)
+    at async SSRCompatModuleRunner.directRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/chunks/config.js:15111:22)
+    at async SSRCompatModuleRunner.cachedRequest (file:/home/luis/-Chucheritas-Aralan-/node_modules/vite/dist/node/module-runner.js:1053:73)
+    at async eval (src/lib/db/services/products.js:2:1)
+[2026-05-26T16:11:03.892Z] [LOG  ] /*! 🌼 daisyUI 5.5.19 */
+[2026-05-26T16:11:28.750Z] [LOG  ] 
+
+
+
+
+
+
+
+
+
+
+
+
+[2026-05-26T16:11:28.751Z] [LOG  ] [2m10:11:28 a.m.[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app.css, /src/routes/catalogo/+page.svelte[22m
+[2026-05-26T16:11:57.103Z] [LOG  ] 
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+

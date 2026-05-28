@@ -1,11 +1,10 @@
-// src/lib/db/public-client.js — browser, usa anon key
 import { createClient } from "@supabase/supabase-js";
 import {
   PUBLIC_SUPABASE_URL,
-  PUBLIC_SUPABASE_ANON_KEY,
+  PUBLIC_SUPABASE_PUBLISHABLE_KEY,
 } from "$env/static/public";
 
-export const supabase = createClient(
-  PUBLIC_SUPABASE_URL,
-  PUBLIC_SUPABASE_ANON_KEY,
-);
+const supabaseUrl = PUBLIC_SUPABASE_URL;
+const supabaseKey = PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseKey);

@@ -1,6 +1,6 @@
 // src/lib/db/services/products.js
 import { supabase } from "../public-client.js";
-import { compressImages } from "../utils/picEditor.js";
+//import { compressImages } from "../utils/picEditor.js";
 import { getCache, setCache, clearCache } from "../cache.js";
 
 const BUCKET = "product_pictures";
@@ -19,6 +19,7 @@ export async function getProducts() {
   if (cached) return { data: cached, error: null };
 
   const { data, error } = await supabase
+    .schema("products")
     .from("products")
     .select(
       `
@@ -46,6 +47,7 @@ export async function getProductById(productId) {
   if (cached) return { data: cached, error: null };
 
   const { data, error } = await supabase
+    .schema("products")
     .from("products")
     .select(
       `
@@ -73,6 +75,7 @@ export async function getProductsByCategory(categoryId) {
   if (cached) return { data: cached, error: null };
 
   const { data, error } = await supabase
+    .schema("products")
     .from("products")
     .select(
       `
@@ -250,4 +253,37 @@ async function uploadProductPicture(storagePath, fileBuffer, upsert = false) {
 export function getProductPictureUrl(path) {
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
   return data.publicUrl;
+}
+
+export async function compressImages(
+  picPaths,
+  { prefix = "image", width, height, quality = 75, fit = "cover" } = {},
+) {
+  const sharp = (await import("sharp")).default;
+  const path = await import("path");
+
+  const timestamp = new Date()
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace("T", "_")
+    .split(".")[0];
+
+  return await Promise.all(
+    picPaths.map(async (picPath, index) => {
+      let pipeline = sharp(picPath);
+
+      if (width || height) {
+        pipeline = pipeline.resize(width, height, { fit });
+      }
+
+      const buffer = await pipeline.webp({ quality }).toBuffer();
+
+      const originalName = path.parse(picPath).name.replace(/\s+/g, "_");
+
+      return {
+        path: `${prefix}_${originalName}_${timestamp}_${index}.webp`,
+        buffer,
+      };
+    }),
+  );
 }
